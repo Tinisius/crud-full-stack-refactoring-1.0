@@ -9,12 +9,16 @@
 *    Iteration   : 3.0 ( prototype )
 */
 
-$host = "localhost";
-$user = "student";
-$password = "12345";
-$database = "students";
+//establece la conexión con la DB MySQL.
 
-$conn = new mysqli($host, $user, $password, $database);
+$host = "localhost";        //direccion del servidor de DB
+$user = "student";        //usuario mysql con todos los permisos "admin"
+$password = "12345";        //su contraseña sql
+$database = "students";        //nombre de la DB que queremos acceder
+
+//crea una conexión a la base de datos usando la clase mysqli (MySQL Improved).
+$conn = new mysqli($host, $user, $password, $database);        //crea un nuevo objeto $conn para consultas
+
 
 if ($conn->connect_error) 
 {
