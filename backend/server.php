@@ -14,9 +14,10 @@
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+//configuración CORS (Cross-Origin Resource Sharing)
+header("Access-Control-Allow-Origin: *");    //permite que cualquier sitio web se comunique con este servidor (reemplazar * por una direccion X)
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");    //admite las acciones basica del CRUD
+header("Access-Control-Allow-Headers: Content-Type");    //permite que las solicitudes indiquen el typo del contenido (ejemplo: JSON)
 
 function sendCodeMessage($code, $message = "")
 {
