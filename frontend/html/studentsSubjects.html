@@ -9,7 +9,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../img/favicon.png">
   <link rel="stylesheet" href="../css/w3.css" />
   <link rel="stylesheet" href="../css/styles.css" />
-  <script type="module" src="../js/controllers/studentsSubjectsController.js"></script>
+  <script type="module" src="../js/controllers/studentsSubjectsController.js"></script>  <!--Se importa el controlador para: Cargar listas, Manejar eventos del formulario, etc -->
 </head>
 
 <body class="w3-container">
@@ -24,7 +24,7 @@
         <label>Estudiante</label>
         <select id="studentIdSelect" class="w3-select" required>
           <option value="" disabled selected>Seleccionar estudiante</option>
-          <!-- Opciones se cargan dinámicamente desde JS -->
+          <!-- Se pobla dinámicamente con materias (subjectsAPI.fetchAll()). -->
         </select>
       </div>
       <div class="w3-third">
