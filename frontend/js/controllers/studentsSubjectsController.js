@@ -8,26 +8,27 @@
 *    Iteration   : 3.0 ( prototype )
 */
 
-import { studentsAPI } from '../api/studentsAPI.js';
-import { subjectsAPI } from '../api/subjectsAPI.js';
-import { studentsSubjectsAPI } from '../api/studentsSubjectsAPI.js';
+//funciones necesarias para acceder a:
+import { studentsAPI } from '../api/studentsAPI.js';    //estudiantes
+import { subjectsAPI } from '../api/subjectsAPI.js';    //materias
+import { studentsSubjectsAPI } from '../api/studentsSubjectsAPI.js';    //relaciones entre ellos
 
-document.addEventListener('DOMContentLoaded', () => 
+document.addEventListener('DOMContentLoaded', () =>    //esperamos a que el DOM (los elementos HTML) se carguen antes de ejecutar las funciones JS
 {
-    initSelects();
-    setupFormHandler();
-    setupCancelHandler();
-    loadRelations();
+    initSelects();    //Se cargan los <select> con estudiantes y materias
+    setupFormHandler();    //Se configura el evento submit (enviar) del formulario
+    setupCancelHandler();    //Se configura el botón Cancelar
+    loadRelations();    //Se carga la tabla de relaciones actuales
 });
 
-async function initSelects() 
+async function initSelects()    //Carga estudiantes y materias en sus respectivos <select>
 {
     try 
     {
         // Cargar estudiantes
-        const students = await studentsAPI.fetchAll();
-        const studentSelect = document.getElementById('studentIdSelect');
-        students.forEach(s => 
+        const students = await studentsAPI.fetchAll();    //guarda todos los estudiantes de la DB
+        const studentSelect = document.getElementById('studentIdSelect');    //Se busca el ¿formulario? con el id="studentIdSelect" desde el HTML.
+        students.forEach(s =>    //por cada estudiante
         {
             const option = document.createElement('option');
             option.value = s.id;
