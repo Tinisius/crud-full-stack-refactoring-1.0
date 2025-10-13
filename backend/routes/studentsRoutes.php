@@ -8,9 +8,9 @@
 *    Status      : Prototype
 *    Iteration   : 3.0 ( prototype )
 */
-require_once("./config/databaseConfig.php");
-require_once("./routes/routesFactory.php");
-require_once("./controllers/studentsController.php");
+require_once("./config/databaseConfig.php");    //contiene los datos para conectarse a la DB (usuario, contraseña, etc)
+require_once("./routes/routesFactory.php");    //contiene routeRequest() que gestiona las rutas para get, post, etc
+require_once("./controllers/studentsController.php");    //contiene las funciones handleGet(), etc que hacen el trabajo real de consultar, modificar, etc
 
 routeRequest($conn);
 
