@@ -12,12 +12,20 @@ import { studentsAPI } from '../apiConsumers/studentsAPI.js';
 import { subjectsAPI } from '../apiConsumers/subjectsAPI.js';
 import { studentsSubjectsAPI } from '../apiConsumers/studentsSubjectsAPI.js';
 
+//2.1
+//For pagination:
+let currentPage = 1;
+let totalPages = 1;
+const limit = 3;
+
+
 document.addEventListener('DOMContentLoaded', () => 
 {
     initSelects();
     setupFormHandler();
     setupCancelHandler();
     loadRelations();
+    setupPaginationControls();//2.1
 });
 
 async function initSelects() 
@@ -90,6 +98,34 @@ function setupCancelHandler()
     });
 }
 
+//2.1
+function setupPaginationControls() 
+{
+    document.getElementById('prevPage').addEventListener('click', () => 
+    {
+        if (currentPage > 1) 
+        {
+            currentPage--;
+            loadSubjectsStudents();
+        }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', () => 
+    {
+        if (currentPage < totalPages) 
+        {
+            currentPage++;
+            loadSubjectsStudents();
+        }
+    });
+
+    document.getElementById('resultsPerPage').addEventListener('change', e => 
+    {
+        currentPage = 1;
+        loadSubjectsStudents();
+    });
+}
+
 function getFormData() 
 {
     return{
@@ -104,6 +140,24 @@ function clearForm()
 {
     document.getElementById('relationForm').reset();
     document.getElementById('relationId').value = '';
+}
+
+//2.1
+async function loadSubjectsStudents()
+{
+    try 
+    {
+        const resPerPage = parseInt(document.getElementById('resultsPerPage').value, 10) || limit;
+        const data = await studentsSubjectsAPI.fetchPaginated(currentPage, resPerPage);
+        console.log(data);
+        renderStudentTable(data.students);
+        totalPages = Math.ceil(data.total / resPerPage);
+        document.getElementById('pageInfo').textContent = `Página ${currentPage} de ${totalPages}`;
+    } 
+    catch (err) 
+    {
+        console.error('Error cargando estudiantes:', err.message);
+    }
 }
 
 async function loadRelations() 

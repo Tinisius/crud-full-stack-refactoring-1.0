@@ -1,7 +1,7 @@
 /**
 *    File        : frontend/js/controllers/subjectsController.js
 *    Project     : CRUD PHP
-*    Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
+*    Author      : Tecnolo  ías Informáticas B - Facultad de Ingeniería - UNMdP
 *    License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
 *    Date        : Mayo 2025
 *    Status      : Prototype
@@ -10,11 +10,18 @@
 
 import { subjectsAPI } from '../apiConsumers/subjectsAPI.js';
 
+//2.1
+//For pagination:
+let currentPage = 1;
+let totalPages = 1;
+const limit = 3;
+
 document.addEventListener('DOMContentLoaded', () => 
 {
     loadSubjects();
     setupSubjectFormHandler();
     setupCancelHandler();
+    setupPaginationControls();//2.1
 });
 
 function setupSubjectFormHandler() 
@@ -60,12 +67,46 @@ function setupCancelHandler()
     });
 }
 
+//2.1
+function setupPaginationControls() 
+{
+    document.getElementById('prevPage').addEventListener('click', () => 
+    {
+        if (currentPage > 1) 
+        {
+            currentPage--;
+            loadSubjects();
+        }
+    });
+
+    document.getElementById('nextPage').addEventListener('click', () => 
+    {
+        if (currentPage < totalPages) 
+        {
+            currentPage++;
+            loadSubjects();
+        }
+    });
+
+    document.getElementById('resultsPerPage').addEventListener('change', e => 
+    {
+        currentPage = 1;
+        loadSubjects();
+    });
+}
+
 async function loadSubjects()
 {
     try
     {
-        const subjects = await subjectsAPI.fetchAll();
-        renderSubjectTable(subjects);
+        //const subjects = await subjectsAPI.fetchAll();
+        //renderSubjectTable(subjects);
+        const resPerPage = parseInt(document.getElementById('resultsPerPage').value, 10) || limit;
+        const data = await subjectsAPI.fetchPaginated(currentPage, resPerPage);
+        console.log(data);
+        renderSubjectTable(data.subjects);
+        totalPages = Math.ceil(data.total / resPerPage);
+        document.getElementById('pageInfo').textContent = `Página ${currentPage} de ${totalPages}`;
     }
     catch (err)
     {

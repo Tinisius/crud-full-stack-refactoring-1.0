@@ -18,7 +18,7 @@ function getAllStudents($conn)
 }
 
 //2.0
-function getPaginatedStudents($conn, $limit, $offset) 
+function getPaginatedStudents($conn, $limit, $offset)
 {
     $stmt = $conn->prepare("SELECT * FROM students LIMIT ? OFFSET ?");
     $stmt->bind_param("ii", $limit, $offset);

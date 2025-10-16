@@ -14,7 +14,7 @@ import { studentsAPI } from '../apiConsumers/studentsAPI.js';
 //For pagination:
 let currentPage = 1;
 let totalPages = 1;
-const limit = 5;
+const limit = 3;
 
 document.addEventListener('DOMContentLoaded', () => 
 {

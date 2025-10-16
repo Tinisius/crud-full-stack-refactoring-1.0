@@ -16,6 +16,24 @@ function getAllSubjects($conn)
     return $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
 }
 
+//2.1
+function getSubjects($conn, $limit, $offset)
+{
+    $stmt = $conn->prepare("SELECT * FROM Subjects LIMIT ? OFFSET ?");
+    $stmt->bind_param("ii", $limit, $offset);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+//2.1
+function getTotalSubjects($conn) 
+{
+    $sql = "SELECT COUNT(*) AS total FROM Subjects";
+    $result = $conn->query($sql);
+    return $result->fetch_assoc()['total'];
+}
+
 function getSubjectById($conn, $id) 
 {
     $sql = "SELECT * FROM subjects WHERE id = ?";
