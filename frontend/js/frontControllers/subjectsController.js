@@ -95,12 +95,11 @@ function setupPaginationControls()
     });
 }
 
+//2.1
 async function loadSubjects()
 {
     try
     {
-        //const subjects = await subjectsAPI.fetchAll();
-        //renderSubjectTable(subjects);
         const resPerPage = parseInt(document.getElementById('resultsPerPage').value, 10) || limit;
         const data = await subjectsAPI.fetchPaginated(currentPage, resPerPage);
         console.log(data);
